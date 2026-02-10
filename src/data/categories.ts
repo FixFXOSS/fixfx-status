@@ -86,6 +86,14 @@ export const categories: LinkCategory[] = [
                 icon: "BookOpen",
                 description: "Unofficial guides and documentation for ESX, QBCore and more.",
                 color: "bg-blue-500"
+            },
+            {
+                id: "yorick",
+                title: "Yorick Documentation",
+                url: "https://docs.yorick.gg",
+                icon: "BookOpen",
+                description: "Community documentation to learn the basics of running a FiveM server",
+                color: "bg-rose-500"
             }
 		],
 	},
