@@ -57,16 +57,16 @@ export const serviceCategories: ServiceCategory[] = [
 		color: "text-emerald-400",
 		services: [
 			{
-				id: "servers-frontend",
-				name: "Server List (Frontend)",
-				url: "https://servers-frontend.fivem.net/api/servers/single/qdr473",
+				id: "servers-fivem",
+				name: "FiveM Server List",
+				url: "https://servers.fivem.net",
 				description: "Public server browser API",
 				acceptRange: true,
 			},
 			{
 				id: "servers-live",
-				name: "Server List (Live)",
-				url: "https://servers-live.fivem.net",
+				name: "RedM Server List",
+				url: "https://servers.redm.net",
 				description: "Live server listing ingress",
 				acceptRange: true,
 			},
