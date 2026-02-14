@@ -4,7 +4,6 @@ Unofficial real-time status page for Cfx.re services — monitors FiveM, RedM, F
 
 [![Build status](https://github.com/FixFXOSS/cfxstat.us/actions/workflows/test-build.yml/badge.svg)](https://github.com/FixFXOSS/cfxstat.us/actions)
 [![Lint status](https://github.com/FixFXOSS/cfxstat.us/actions/workflows/validate-linting.yml/badge.svg)](https://github.com/FixFXOSS/cfxstat.us/actions)
-[![Format status](https://github.com/FixFXOSS/cfxstat.us/actions/workflows/validate-formatting.yml/badge.svg)](https://github.com/FixFXOSS/cfxstat.us/actions)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
 [![Deployed on Cloudflare Workers](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Workers-orange.svg)](https://workers.cloudflare.com/)
 

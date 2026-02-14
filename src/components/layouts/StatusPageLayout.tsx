@@ -1,8 +1,9 @@
-import { Clock, Loader2, RefreshCw } from "lucide-react";
+import { Clock, RefreshCw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { StatusFooter } from "@/components/StatusFooter";
 import { StatusHeader } from "@/components/StatusHeader";
 import { BackgroundEffects } from "@/components/ui/BackgroundEffects";
+import { InitialLoader } from "@/components/ui/InitialLoader";
 import { OverallBanner } from "@/components/ui/OverallBanner";
 import { ServiceCategoryCard } from "@/components/ui/ServiceCategoryCard";
 import type { StatusSummary } from "@/types/status";
@@ -74,11 +75,7 @@ export default function StatusPageLayout() {
 
 				<main className="flex-1 mx-auto w-full max-w-4xl px-4 py-8 md:px-6 md:py-12 space-y-8">
 					{!data ? (
-						/* Loading skeleton — shown on first paint */
-						<div className="flex flex-col items-center justify-center py-20 gap-4">
-							<Loader2 size={32} className="animate-spin text-blue-400" />
-							<p className="text-sm text-gray-400">Checking services…</p>
-						</div>
+						<InitialLoader />
 					) : (
 						<>
 							{/* Overall banner */}
