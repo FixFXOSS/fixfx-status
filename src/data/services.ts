@@ -71,13 +71,6 @@ export const serviceCategories: ServiceCategory[] = [
 				acceptRange: true,
 			},
 			{
-				id: "servers",
-				name: "servers.fivem.net",
-				url: "https://servers.fivem.net",
-				description: "Server list root",
-				acceptRange: true,
-			},
-			{
 				id: "nui-nucleus",
 				name: "Nucleus (NUI)",
 				url: "https://nui-nucleus.cfx.re/",
