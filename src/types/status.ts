@@ -50,3 +50,22 @@ export interface StatusSummary {
 	totalServices: number;
 	operationalCount: number;
 }
+
+export interface Incident {
+	id: string;
+	serviceId: string;
+	serviceName: string;
+	startedAt: string;
+	resolvedAt?: string;
+	previousStatus: ServiceStatus;
+	status: ServiceStatus;
+	impact: "minor" | "major" | "critical";
+	title: string;
+	description?: string;
+	autoDetected: boolean;
+}
+
+export interface IncidentSummary {
+	incidents: Incident[];
+	lastUpdated: string;
+}

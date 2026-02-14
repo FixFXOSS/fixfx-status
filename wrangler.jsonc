@@ -14,6 +14,9 @@
   "vars": {
     "ENVIRONMENT": "production"
   },
+  "kv_namespaces": [
+    { "binding": "INCIDENTS", "id": "cfxstat_incidents" }
+  ],
   "observability": {
     "logs": {
       "enabled": true,

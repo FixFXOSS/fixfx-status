@@ -93,6 +93,12 @@ export const Route = createRootRoute({
 				href: appCss,
 			},
 			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/api/status.rss",
+				title: "CFX Status - Incident Feed",
+			},
+			{
 				rel: "preconnect",
 				href: "https://fonts.googleapis.com",
 			},

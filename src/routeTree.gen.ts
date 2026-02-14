@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiStatusRouteImport } from './routes/api/status'
+import { Route as ApiIncidentsRouteImport } from './routes/api/incidents'
+import { Route as ApiStatusRssRouteImport } from './routes/api/status.rss'
 
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
@@ -28,35 +30,58 @@ const ApiStatusRoute = ApiStatusRouteImport.update({
   path: '/api/status',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIncidentsRoute = ApiIncidentsRouteImport.update({
+  id: '/api/incidents',
+  path: '/api/incidents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStatusRssRoute = ApiStatusRssRouteImport.update({
+  id: '/rss',
+  path: '/rss',
+  getParentRoute: () => ApiStatusRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/api/status': typeof ApiStatusRoute
+  '/api/incidents': typeof ApiIncidentsRoute
+  '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/status/rss': typeof ApiStatusRssRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/api/status': typeof ApiStatusRoute
+  '/api/incidents': typeof ApiIncidentsRoute
+  '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/status/rss': typeof ApiStatusRssRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/api/status': typeof ApiStatusRoute
+  '/api/incidents': typeof ApiIncidentsRoute
+  '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/status/rss': typeof ApiStatusRssRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/api/status'
+  fullPaths: '/' | '/$' | '/api/incidents' | '/api/status' | '/api/status/rss'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/api/status'
-  id: '__root__' | '/' | '/$' | '/api/status'
+  to: '/' | '/$' | '/api/incidents' | '/api/status' | '/api/status/rss'
+  id:
+    | '__root__'
+    | '/'
+    | '/$'
+    | '/api/incidents'
+    | '/api/status'
+    | '/api/status/rss'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  ApiStatusRoute: typeof ApiStatusRoute
+  ApiIncidentsRoute: typeof ApiIncidentsRoute
+  ApiStatusRoute: typeof ApiStatusRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +107,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/incidents': {
+      id: '/api/incidents'
+      path: '/api/incidents'
+      fullPath: '/api/incidents'
+      preLoaderRoute: typeof ApiIncidentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/status/rss': {
+      id: '/api/status/rss'
+      path: '/rss'
+      fullPath: '/api/status/rss'
+      preLoaderRoute: typeof ApiStatusRssRouteImport
+      parentRoute: typeof ApiStatusRoute
+    }
   }
 }
+
+interface ApiStatusRouteChildren {
+  ApiStatusRssRoute: typeof ApiStatusRssRoute
+}
+
+const ApiStatusRouteChildren: ApiStatusRouteChildren = {
+  ApiStatusRssRoute: ApiStatusRssRoute,
+}
+
+const ApiStatusRouteWithChildren = ApiStatusRoute._addFileChildren(
+  ApiStatusRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  ApiStatusRoute: ApiStatusRoute,
+  ApiIncidentsRoute: ApiIncidentsRoute,
+  ApiStatusRoute: ApiStatusRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

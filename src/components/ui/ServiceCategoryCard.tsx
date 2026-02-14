@@ -90,7 +90,7 @@ interface ServiceCategoryCardProps {
 
 export function ServiceCategoryCard({
 	category,
-	defaultOpen = true,
+	defaultOpen = false,
 }: ServiceCategoryCardProps) {
 	const [open, setOpen] = useState(defaultOpen);
 	const Icon = iconMap[category.icon] ?? Server;

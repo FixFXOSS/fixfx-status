@@ -6,6 +6,7 @@ import type {
 	ServiceStatus,
 	StatusSummary,
 } from "@/types/status";
+import { trackIncident } from "./incident-tracker";
 
 const TIMEOUT_MS = 15_000;
 
@@ -13,6 +14,9 @@ const MAX_CONCURRENCY = 4;
 
 const MAX_RETRIES = 2;
 const BASE_BACKOFF_MS = 1_000;
+
+// Cache for last known service statuses (for incident detection)
+const lastKnownStatus: Map<string, ServiceStatus> = new Map();
 
 function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -192,7 +196,15 @@ export async function checkAllServices(
 	}));
 
 	for (let i = 0; i < tasks.length; i++) {
-		categoryResults[tasks[i].catIdx].services.push(results[i]);
+		const result = results[i];
+		categoryResults[tasks[i].catIdx].services.push(result);
+
+		// Track incident if status changed
+		const previousStatus = lastKnownStatus.get(result.id) || "unknown";
+		if (previousStatus !== "unknown" && previousStatus !== result.status) {
+			trackIncident(result.id, result.name, previousStatus, result.status);
+		}
+		lastKnownStatus.set(result.id, result.status);
 	}
 
 	for (const cat of categoryResults) {
