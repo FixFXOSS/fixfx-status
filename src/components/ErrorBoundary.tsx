@@ -1,4 +1,4 @@
-import { Link, ErrorComponentProps } from "@tanstack/react-router";
+import { Link, type ErrorComponentProps } from "@tanstack/react-router";
 import { Home, RefreshCw, AlertTriangle } from "lucide-react";
 import { BackgroundEffects } from "@/components/ui/BackgroundEffects";
 

@@ -12,10 +12,12 @@ export function BackgroundEffects() {
 	};
 
 	return (
+		// biome-ignore lint: pointer-events: none prevents actual interaction
 		<div
 			className="fixed inset-0 z-0 pointer-events-auto"
 			onMouseMove={handleMouseMove}
 			style={{ pointerEvents: "none" }}
+			role="presentation"
 		>
 			{/* Base gradient */}
 			<div className="absolute inset-0 bg-linear-to-b from-background via-[#0d0d0f] to-background" />
@@ -32,7 +34,7 @@ export function BackgroundEffects() {
 
 			{/* Dynamic glow orbs */}
 			<div
-				className="absolute w-[600px] h-[600px] rounded-full blur-[120px] opacity-[0.07] transition-all duration-2000 ease-out"
+				className="absolute w-150 h-150 rounded-full blur-[120px] opacity-[0.07] transition-all duration-2000 ease-out"
 				style={{
 					background:
 						"radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent 70%)",

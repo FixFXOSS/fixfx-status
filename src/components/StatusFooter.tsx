@@ -22,10 +22,11 @@ export function StatusFooter() {
 					</p>
 
 					<a
-						href="https://github.com/CodeMeAPixel/fixfx-status"
-						target="_blank"FixFXOSS/cfxstat.
+						href="https://github.com/FixFXOSS/cfxstat.us"
+						target="_blank"
 						rel="noopener noreferrer"
 						className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors"
+						aria-label="View source code on GitHub"
 					>
 						<Github size={14} />
 						Source

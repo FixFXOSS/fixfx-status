@@ -160,7 +160,7 @@ async function checkEndpoint(svc: ServiceEndpoint): Promise<ServiceResult> {
 
 			// Timeouts and network errors are retryable
 			if (attempt < MAX_RETRIES) {
-				continue;
+					// Retry on next iteration
 			}
 		}
 	}
