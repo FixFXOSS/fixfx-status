@@ -362,7 +362,7 @@ export default function LinkHubContent({ profile }: LinkHubContentProps) {
 						💡 Tip: Use the copy button to share direct links to specific resources
 					</p>
 					<p className="text-[11px] text-gray-600 font-medium tracking-wider uppercase">
-						Powered by <a href="https://fixfx.wiki" className="text-blue-500 hover:underline">FixFX</a> | Made with ❤️ by <a href="https://codemapixel.dev" className="text-blue-500 hover:underline">CodeMeAPixel</a>
+						Powered by <a href="https://fixfx.wiki" className="text-blue-500 hover:underline">FixFX</a> | Made with ❤️ by <a href="https://codemeapixel.dev" className="text-blue-500 hover:underline">CodeMeAPixel</a>
 					</p>
 				</div>
 			</div>
