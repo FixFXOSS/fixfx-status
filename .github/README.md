@@ -2,7 +2,7 @@
 
 Unofficial real-time status page for Cfx.re services. Monitors FiveM, RedM, Forum, Keymaster, Marketplace, and infrastructure. Built with TanStack Start and deployed on Cloudflare Workers.
 
-> [!INFO]
+> [!CAUTION]
 > **DISCLAIMER:** This is an **unofficial** project and is **not affiliated** with Cfx.re, Rockstar Games, or Take-Two Interactive. All trademarks belong to their respective owners.
 
 ## Features
