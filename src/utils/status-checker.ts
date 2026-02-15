@@ -167,6 +167,7 @@ function worstStatus(results: ServiceResult[]): ServiceStatus {
 
 export async function checkAllServices(
 	categories: ServiceCategory[],
+	env?: { INCIDENTS?: any; WEBHOOKS?: any }, // CloudflareEnv
 ): Promise<StatusSummary> {
 	const tasks: {
 		catIdx: number;
@@ -199,10 +200,12 @@ export async function checkAllServices(
 		const result = results[i];
 		categoryResults[tasks[i].catIdx].services.push(result);
 
-		// Track incident if status changed
 		const previousStatus = lastKnownStatus.get(result.id) || "unknown";
 		if (previousStatus !== "unknown" && previousStatus !== result.status) {
-			trackIncident(result.id, result.name, previousStatus, result.status);
+			// Fire incident tracking in the background without awaiting
+			trackIncident(result.id, result.name, previousStatus, result.status, env).catch((err) => {
+				console.error("Failed to track incident:", err);
+			});
 		}
 		lastKnownStatus.set(result.id, result.status);
 	}

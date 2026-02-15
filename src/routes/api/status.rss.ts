@@ -4,11 +4,11 @@ import { getAllIncidents } from "@/utils/incident-tracker";
 export const Route = createFileRoute("/api/status/rss")({
 	server: {
 		handlers: {
-			GET: async () => {
-				const incidents = getAllIncidents();
+			GET: async (ctx) => {
+				const incidents = await getAllIncidents((ctx as any).env);
 				const siteUrl = "https://cfxstat.us";
 				const buildDate = new Date().toUTCString();
-        
+
 				const incidentItems = incidents
 					.slice(0, 20)
 					.map((inc) => {

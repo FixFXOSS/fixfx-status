@@ -15,7 +15,8 @@
     "ENVIRONMENT": "production"
   },
   "kv_namespaces": [
-    { "binding": "INCIDENTS", "id": "cfxstat_incidents" }
+    { "binding": "INCIDENTS", "id": "cfxstat_incidents" },
+    { "binding": "WEBHOOKS", "id": "cfxstat_webhooks" }
   ],
   "observability": {
     "logs": {

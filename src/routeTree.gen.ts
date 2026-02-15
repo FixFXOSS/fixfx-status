@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiWebhooksRouteImport } from './routes/api/webhooks'
 import { Route as ApiStatusRouteImport } from './routes/api/status'
 import { Route as ApiIncidentsRouteImport } from './routes/api/incidents'
+import { Route as ApiWebhooksTestRouteImport } from './routes/api/webhooks/test'
 import { Route as ApiStatusRssRouteImport } from './routes/api/status.rss'
 
 const SplatRoute = SplatRouteImport.update({
@@ -25,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksRoute = ApiWebhooksRouteImport.update({
+  id: '/api/webhooks',
+  path: '/api/webhooks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiStatusRoute = ApiStatusRouteImport.update({
   id: '/api/status',
   path: '/api/status',
@@ -34,6 +41,11 @@ const ApiIncidentsRoute = ApiIncidentsRouteImport.update({
   id: '/api/incidents',
   path: '/api/incidents',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebhooksTestRoute = ApiWebhooksTestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => ApiWebhooksRoute,
 } as any)
 const ApiStatusRssRoute = ApiStatusRssRouteImport.update({
   id: '/rss',
@@ -46,14 +58,18 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/api/incidents': typeof ApiIncidentsRoute
   '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/webhooks': typeof ApiWebhooksRouteWithChildren
   '/api/status/rss': typeof ApiStatusRssRoute
+  '/api/webhooks/test': typeof ApiWebhooksTestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api/incidents': typeof ApiIncidentsRoute
   '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/webhooks': typeof ApiWebhooksRouteWithChildren
   '/api/status/rss': typeof ApiStatusRssRoute
+  '/api/webhooks/test': typeof ApiWebhooksTestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,20 +77,38 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/api/incidents': typeof ApiIncidentsRoute
   '/api/status': typeof ApiStatusRouteWithChildren
+  '/api/webhooks': typeof ApiWebhooksRouteWithChildren
   '/api/status/rss': typeof ApiStatusRssRoute
+  '/api/webhooks/test': typeof ApiWebhooksTestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/api/incidents' | '/api/status' | '/api/status/rss'
+  fullPaths:
+    | '/'
+    | '/$'
+    | '/api/incidents'
+    | '/api/status'
+    | '/api/webhooks'
+    | '/api/status/rss'
+    | '/api/webhooks/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/api/incidents' | '/api/status' | '/api/status/rss'
+  to:
+    | '/'
+    | '/$'
+    | '/api/incidents'
+    | '/api/status'
+    | '/api/webhooks'
+    | '/api/status/rss'
+    | '/api/webhooks/test'
   id:
     | '__root__'
     | '/'
     | '/$'
     | '/api/incidents'
     | '/api/status'
+    | '/api/webhooks'
     | '/api/status/rss'
+    | '/api/webhooks/test'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -82,6 +116,7 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   ApiIncidentsRoute: typeof ApiIncidentsRoute
   ApiStatusRoute: typeof ApiStatusRouteWithChildren
+  ApiWebhooksRoute: typeof ApiWebhooksRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -100,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks': {
+      id: '/api/webhooks'
+      path: '/api/webhooks'
+      fullPath: '/api/webhooks'
+      preLoaderRoute: typeof ApiWebhooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/status': {
       id: '/api/status'
       path: '/api/status'
@@ -113,6 +155,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/incidents'
       preLoaderRoute: typeof ApiIncidentsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/webhooks/test': {
+      id: '/api/webhooks/test'
+      path: '/test'
+      fullPath: '/api/webhooks/test'
+      preLoaderRoute: typeof ApiWebhooksTestRouteImport
+      parentRoute: typeof ApiWebhooksRoute
     }
     '/api/status/rss': {
       id: '/api/status/rss'
@@ -136,11 +185,24 @@ const ApiStatusRouteWithChildren = ApiStatusRoute._addFileChildren(
   ApiStatusRouteChildren,
 )
 
+interface ApiWebhooksRouteChildren {
+  ApiWebhooksTestRoute: typeof ApiWebhooksTestRoute
+}
+
+const ApiWebhooksRouteChildren: ApiWebhooksRouteChildren = {
+  ApiWebhooksTestRoute: ApiWebhooksTestRoute,
+}
+
+const ApiWebhooksRouteWithChildren = ApiWebhooksRoute._addFileChildren(
+  ApiWebhooksRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   ApiIncidentsRoute: ApiIncidentsRoute,
   ApiStatusRoute: ApiStatusRouteWithChildren,
+  ApiWebhooksRoute: ApiWebhooksRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

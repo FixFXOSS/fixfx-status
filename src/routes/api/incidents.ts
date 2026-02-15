@@ -8,7 +8,7 @@ export const Route = createFileRoute("/api/incidents")({
 				const limit = Number.parseInt(
 					new URL(ctx.request.url).searchParams.get("limit") || "50",
 				);
-				const incidents = getRecentIncidents(Math.min(limit, 200));
+				const incidents = await getRecentIncidents(Math.min(limit, 200), (ctx as any).env);
 
 				return Response.json(
 					{
